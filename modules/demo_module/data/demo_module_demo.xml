@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="hello_world_demo" model="hello.world">
+            <field name="name">My first record for model 'hello.world'</field>
+        </record>
+    </data>
+</openerp>

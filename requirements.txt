@@ -1,0 +1,3 @@
+# Use this requirements.txt file for your project pip packages dependencies
+# example:
+# requests==0.11.1
