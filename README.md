@@ -25,9 +25,11 @@ Create a new Voodoo project:
 ```
 
 If you already have a local odoo 8.0 repo on your computer on the proper branch,
-adjust the path of odoo-directory in the buildout.dev.cfg file!
+adjust the path of odoo-directory (by default ~/.buildout/odoo8) in the buildout.dev.cfg file!
+You can eventually create a symbolic link at ~/.buildout/odoo8 pointing to an existing local repo.
+
 We will now step into a Docker container able to run Odoo.
-Warning, the first time it will download the akretion/voodoo image of 2Go!
+Warning, the first time it will download the akretion/voodoo image of 1.6Go!
 ```
   ./ak
   ak run  # (inside the container)
