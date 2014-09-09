@@ -6,7 +6,7 @@
 IMAGE=${IMAGE:="akretion/voodoo"}
 PORT=${PORT:="8069"}
 POLLING_PORT=${POLLING_PORT:="8072"}
-SSH_USER=${SSH_USER:="akretion"}
+SSH_USER=${SSH_USER:="api"}
 SERVER=${SERVER:="$2.akretion.com"}
 
 
