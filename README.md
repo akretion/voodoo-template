@@ -14,11 +14,18 @@ Install or upgrade your Docker:
 Give non root access to Docker if not done already:
 ```
   sudo groupadd docker
-  sudo gpasswd -a ${USER} docker # you may have to logout and log back in again!
+  sudo gpasswd -a ${USER} docker
   sudo service docker restart # use docker.io instead of docker in Ubuntu 14.04
 ```
 
-Create a new Voodoo project:
+**you may have to LOGOUT and LOG BACK IN AGAIN for the group change to take effect!**
+
+A simple test to see if you have non root access is to list your docker images with
+```
+   docker images # make sure you don't need sudo anymore here
+```
+
+Create a new Voodoo project (you could also clone an existing one from elsewhere)
 ```
   git clone https://github.com/akretion/voodoo.git
   cd voodoo
@@ -48,9 +55,9 @@ Best of all, new comers can even play with it on Windows!
 
 **Usages:**
 
-So several usages are possible: from the Odoo project repository to a complete development server for your platform. Please read the right sections above for your use case.
+So several usages are possible: from the Odoo project repository to a complete development server for your platform. Please read the section that matches your use case!
 
-## use as a simple Odoo project repository managed by the Anybox recipe
+## use as a simple Odoo project repository managed by the Anybox recipe; without using Docker.
 
 You can clone a voodoo branch to start your project as simple convenience repo for your project. With the buildout.cfg file you can pin exactly your shared branches dependencies. You also keep the project specific modules under revision control in the modules folder.
 
