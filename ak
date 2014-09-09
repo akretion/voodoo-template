@@ -21,7 +21,7 @@ if [ ! -d /.devstep ]; then
 
     if [[ ! $(docker images | grep "$IMAGE") ]]; then
       echo "Socker $IMAGE not found!"
-      echo "Warning! We will now download 2Go (but only once)"
+      echo "Warning! We will now download 1.6 GB (but only once)"
       docker pull ubuntu:trusty
       docker pull fgrehm/devstep:v0.1.0
       docker pull akretion/voodoo
