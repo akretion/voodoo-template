@@ -4,7 +4,7 @@ Some black magic for your Odoo projects! With Voodoo, it is you who controls the
 
 [![Voodoo by Akretion](https://s3.amazonaws.com/akretion/assets/voodoo.png)](http://akretion.com)
 
-**Quick start on Ubuntu:**
+### Quick start on Ubuntu
 
 Install or upgrade your Docker:
 ```
@@ -36,35 +36,35 @@ adjust the path of odoo-directory (by default ~/.buildout/odoo8) in the buildout
 You can eventually create a symbolic link at ~/.buildout/odoo8 pointing to an existing local repo.
 
 We will now step into a Docker container able to run Odoo.
-Warning, the first time it will download the akretion/voodoo image of 1.6Go!
+Warning, the first time it will download the akretion/voodoo image of 1.6 GB!
 ```
   ./ak
   ak run  # (inside the container)
 ```
 
-**How it works:**
+### How it works
 
 Firstly Voodoo is a **template repository** to clone and use as a seed for all your Odoo projects. Because it's based on the Anybox recipe 'de facto standard', it allows you to keep under git revision control, all your project branch dependencies (via the buildout.cfg file ) and your project specific modules (in the modules folder). Once you do that, your project becomes easy to share with any developer.
 
-Secondly Voodoo comes with a **complete development runtime**, with all compiled Python dependencies (for v7, v8 and master) and a disposable Postgresql server. It allows to very quickly fire up a new development server that closely match the production without clutering your shinny but small computer SSD disk with stale dependencies all over the place.
+Secondly Voodoo comes with a **complete development runtime**, with all compiled Python dependencies (for v7, v8 and master) and a disposable Postgresql server. It allows to very quickly fire up a new development server that closely matches the production without clutering your shinny but small computer SSD disk with stale dependencies all over the place.
 
 Because it uses Docker, it's very fast and lightweight. You'll never again find yourself unwilling to fix an old customer bug because the cost to setup a dev server is too high. Voodoo is also based on Devstep by Fabio Rehm.
 
 Best of all, new comers can even play with it on Windows!
 
 
-**Usages:**
+### Usages
 
 So several usages are possible: from the Odoo project repository to a complete development server for your platform. Please read the section that matches your use case!
 
-## use as a simple Odoo project repository managed by the Anybox recipe; without using Docker.
+## Use as a simple Odoo project repository managed by Anybox recipe (without using Docker)
 
 You can clone a voodoo branch to start your project as simple convenience repo for your project. With the buildout.cfg file you can pin exactly your shared branches dependencies. You also keep the project specific modules under revision control in the modules folder.
 
 For further details, please simply refer to [Anybox recipe documentation](http://docs.anybox.fr/anybox.recipe.openerp/trunk/)
 
 
-## use as a disposable Docker hackable development server on Linux
+## Use as a disposable Docker hackable development server on Linux
 
 See Quickstart on Ubuntu session for details.
 
@@ -87,7 +87,7 @@ Note that the Docker workdir is your repo that is shared with Docker, so you won
 Your databases are also persisted in your repo folder in the .db hidden folder. But you can always trash all project databases by simply removing that folder.
 
 
-## use on Windows, Mac OS X or Linux with Vagrant + Docker
+## Use on Windows, Mac OS X or Linux with Vagrant + Docker
 
 Voodoo can run anywhere Vagrant and Docker can run, that is even on Windows and MacOSX thanks to bot2docker.
 
@@ -111,3 +111,7 @@ You can destroy the container when you don't need it anymore with:
 ```
   vagrant destroy -f
 ```
+
+## Troubleshooting
+
+[See Troubleshooting in the wiki](https://github.com/akretion/voodoo/wiki/Troubleshooting)
