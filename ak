@@ -44,7 +44,7 @@ if [ ! -d /.devstep ]; then
       [ ! -d "$eggs_dir" ] &&  mkdir -p "$eggs_dir"
       VOLUMES="$VOLUMES -v $eggs_dir:/.devstep/addons/voodoo/host_eggs"
     fi
-    echo "Entering Docker warp zone with shareds volumes:"
+    echo "Entering Docker warp zone with shared volumes:"
     echo "$VOLUMES"
 
 
