@@ -52,6 +52,8 @@ Because it uses Docker, it's very fast and lightweight. You'll never again find 
 
 Best of all, new comers can even play with it on Windows!
 
+**WARNING** Voodoo is **NOT designed for production**: running user has too much privileges and database setup isn't for production.
+
 
 ### Usages
 
