@@ -119,6 +119,7 @@ else # when we are inside of the container
     echo "Bootstrapping Buildout..."
     cd /tmp
     cp "$WORKDIR/buildout.cfg" .
+    sudo pip install --upgrade setuptools
     wget https://raw.github.com/buildout/buildout/master/bootstrap/bootstrap.py
     python bootstrap.py --allow-site-packages
     cp -rf bin "$WORKDIR/bin"
