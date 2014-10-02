@@ -20,6 +20,7 @@ SHARED_ODOO_DIR=${SHARED_ODOO_DIR:="/.devstep/addons/voodoo/odoo"}
 DOCKER_USER=${DOCKER_USER:="developer"}
 DOCKER_RM=${DOCKER_RM:="true"}
 SSH_USER=${SSH_USER:="api"}
+SSH_KEY=${SSH_KEY:=""}
 BUILDOUT=${BUILDOUT:="buildout.dev.cfg"}
 
 
@@ -63,6 +64,7 @@ if [ ! -d "$CONTAINER_DIR" ]; then
     echo "Entering Docker warp zone with shared volumes:"
     echo "$VOLUMES"
 
+    [[ ! -z $SSH_KEY ]] && cp $SSH_KEY .id_rsa
 
     containers=$(docker ps -a | grep " $NAME " | awk '{ print $1 }') || true
     if [ ! -z $containers ]; then
@@ -94,6 +96,8 @@ if [ ! -d "$CONTAINER_DIR" ]; then
 
 # *****************************************************************************
 else # when we are inside of the container
+
+  [[ -f /workspace/.id_rsa ]] && mkdir -p /.devstep/.ssh && mv /workspace/.id_rsa /.devstep/.ssh/id_rsa
 
   export PYTHONPATH=$PYTHONPATH:$PIP_DIR
   if [ ! -d $PIP_DIR ]; then
