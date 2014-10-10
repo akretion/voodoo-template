@@ -40,7 +40,7 @@ if [ ! -d "$CONTAINER_DIR" ]; then
       echo "Docker $IMAGE not found!"
       echo "Warning! We will now download 1.6 GB (but only once)"
       docker pull ubuntu:trusty
-      docker pull fgrehm/devstep:v0.1.0
+      docker pull fgrehm/devstep:v0.2.0
       docker pull akretion/voodoo
     fi
 
