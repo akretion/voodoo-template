@@ -4,9 +4,11 @@
 # will give you shortcuts to main project commands.
 
 IMAGE=${IMAGE:="akretion/voodoo"}
+USE_ADMINER=${USE_ADMINER:=false}
 NAME=${NAME:="voodoo-${PWD##*/}"}
 PORT=${PORT:="8069"}
 POLLING_PORT=${POLLING_PORT:="8072"}
+ADMINER_PORT=${ADMINER_PORT:="8061"}
 SERVER=${SERVER:="$2.akretion.com"}
 POSTGRESQL_DB=${POSTGRESQL_DB:="db"}
 POSTGRESQL_DATA=${POSTGRESQL_DATA:="/workspace/.db"}
@@ -39,7 +41,6 @@ if [ ! -d "$CONTAINER_DIR" ]; then
     if [[ ! $(docker images | grep "$IMAGE") ]]; then
       echo "Docker $IMAGE not found!"
       echo "Warning! We will now download 1.6 GB (but only once)"
-      docker pull ubuntu:trusty
       docker pull fgrehm/devstep:v0.2.0
       docker pull akretion/voodoo
     fi
@@ -78,17 +79,41 @@ if [ ! -d "$CONTAINER_DIR" ]; then
       echo "WARNING port $PORT seems busy, trying to offset ports"
       PORT=$((PORT+10))
       POLLING_PORT=$((POLLING_PORT+10))
+      ADMINER_PORT=$((ADMINER_PORT+10))
       nc -z 127.0.0.1 "$PORT"
     done
-    echo "Odoo will run on port $PORT"
+    echo "Odoo will run at http://localhost:$PORT"
+
+    if [ "$USE_ADMINER" = true ]; then
+        echo "Adminer will run at http://localhost:$ADMINER_PORT/?pgsql=db&username=developer"
+    fi
     PORTS="-p $PORT:8069 -p $POLLING_PORT:8072"
 
-    docker run $START_OPTIONS -e POSTGRESQL_DB="$POSTGRESQL_DB" \
-               -e POSTGRESQL_DATA="$POSTGRESQL_DATA" \
-               -u $DOCKER_USER \
-               --rm=$DOCKER_RM --name $NAME $PORTS $VOLUMES -w "$WORKDIR" $IMAGE \
-               -- /bin/bash -c "'$WORKDIR/ak $@'"
+    runodoo () {
+        docker run $START_OPTIONS -e POSTGRESQL_DB="$POSTGRESQL_DB" \
+                   -e POSTGRESQL_DATA="$POSTGRESQL_DATA" \
+                   -u $DOCKER_USER \
+                   --rm=$DOCKER_RM --name $NAME $PORTS $VOLUMES -w "$WORKDIR" $IMAGE \
+                   -- /bin/bash -c "'$WORKDIR/ak $@'"
+    }
 
+
+    runadminer () {
+        if [ "$USE_ADMINER" = true ]; then
+            sleep 1
+            docker run -d -p $ADMINER_PORT:80 --link $NAME:db sebastienbeau/adminer > .adminer.pid
+        fi
+    }
+
+    runadminer & runodoo
+
+    if [ "$USE_ADMINER" = true ]; then
+        echo "*** Killing Adminer"
+        adminerid=$(cat .adminer.pid)
+        id=$(docker kill $adminerid)
+        id=$(docker rm $adminerid)
+        rm .adminer.pid
+    fi
   else
     exec ssh "$SSH_USER@$SERVER" "$@"
   fi
