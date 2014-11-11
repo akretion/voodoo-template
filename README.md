@@ -91,7 +91,7 @@ Your databases are also persisted in your repo folder in the .db hidden folder. 
 
 ## Use on Windows, Mac OS X or Linux with Vagrant + Docker
 
-Voodoo can run anywhere Vagrant and Docker can run, that is even on Windows and MacOSX thanks to bot2docker.
+Voodoo can run anywhere Vagrant and Docker can run, that is even on Windows and MacOSX thanks to boot2docker.
 
 * First install [a recent version of Vagrant](from http://www.vagrantup.com/downloads.html).
 * And also install [Virtualbox](https://www.virtualbox.org/wiki/Downloads) unless you are on Linux with Docker installed.
