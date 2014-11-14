@@ -88,6 +88,14 @@ Note that the Docker workdir is your repo that is shared with Docker, so you won
 
 Your databases are also persisted in your repo folder in the .db hidden folder. But you can always trash all project databases by simply removing that folder.
 
+## Extra feature
+
+If you need a graphical interface for exploring the database then just add the following line into you .bashrc configuration file
+
+```sh
+export USE_ADMINER=true
+```
+
 
 ## Use on Windows, Mac OS X or Linux with Vagrant + Docker
 
