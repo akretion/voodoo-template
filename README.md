@@ -13,7 +13,6 @@ Install or upgrade your Docker:
 
 Give non root access to Docker if not done already:
 ```
-  sudo groupadd docker
   sudo gpasswd -a ${USER} docker
   sudo service docker restart # use docker.io instead of docker in Ubuntu 14.04
 ```
