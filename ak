@@ -62,10 +62,11 @@ if [ ! -d "$CONTAINER_DIR" ]; then
       [ ! -d "$eggs_dir" ] &&  mkdir -p "$eggs_dir"
       VOLUMES="$VOLUMES -v $eggs_dir:$SHARED_EGGS_DIR"
     fi
+    if [[ ! -z $SSH_KEY ]]; then
+      VOLUMES="$VOLUMES -v $SSH_KEY:/.devstep/.ssh/id_rsa:ro"
+    fi
     echo "Entering Docker warp zone with shared volumes:"
     echo "$VOLUMES"
-
-    [[ ! -z $SSH_KEY ]] && cp $SSH_KEY .id_rsa
 
     containers=$(docker ps -a | grep " $NAME " | awk '{ print $1 }') || true
     if [ ! -z $containers ]; then
@@ -122,15 +123,13 @@ if [ ! -d "$CONTAINER_DIR" ]; then
 # *****************************************************************************
 else # when we are inside of the container
 
-  [[ -f /workspace/.id_rsa ]] && sudo mkdir -p /.devstep/.ssh && sudo mv /workspace/.id_rsa /.devstep/.ssh/id_rsa
-
   export PYTHONPATH=$PYTHONPATH:$PIP_DIR
   if [ ! -d $PIP_DIR ]; then
     # NOTE sadly we cannot persit .pip_packages inside /workspace
     # because of this pip bug https://github.com/pypa/pip/issues/1489
-    [ ! $(cat requirements.txt | grep -v "^#" | grep "[a-z]" | wc -l) = "0" ] && \
+    [ ! $(cat "$WORKDIR/requirements.txt" | grep -v "^#" | grep "[a-z]" | wc -l) = "0" ] && \
     echo "installing requirements.txt with pip" && \
-    pip install -r requirements.txt --target=$PIP_DIR
+    pip install -r "$WORKDIR/requirements.txt" --target=$PIP_DIR
   fi
 
   if [ -d $SHARED_EGGS_DIR ]; then
@@ -144,7 +143,7 @@ else # when we are inside of the container
     eggs_dir="eggs"
   fi
 
-  if [ ! -f bin/buildout ]; then 
+  if [ ! -f "$WORKDIR/bin/buildout" ]; then 
     echo "Bootstrapping Buildout..."
     cd /tmp
     cp "$WORKDIR/buildout.cfg" .
@@ -159,7 +158,7 @@ else # when we are inside of the container
   [ ! -d parts ] && mkdir parts
 
   if [ -f "$SHARED_ODOO_DIR"/setup.py ]; then
-    [ ! -f parts/odoo/setup.py ] && ln -s "$SHARED_ODOO_DIR" parts/odoo
+    [ ! -f "$WORKDIR/parts/odoo/setup.py" ] && ln -s "$SHARED_ODOO_DIR" "$WORKDIR/parts/odoo"
   fi
 
 
@@ -167,22 +166,22 @@ else # when we are inside of the container
 
   run)
     shift
-    [ ! -f bin/start_openerp ] || [ ! -f parts/odoo/setup.py ] && \
+    [ ! -f "$WORKDIR/bin/start_openerp" ] || [ ! -f "$WORKDIR/parts/odoo/setup.py" ] && \
     export FROM_BASH=true && ak build
     ak wait_postgres
-    python bin/start_openerp "$@"
+    python "$WORKDIR/bin/start_openerp" "$@"
     ;;
 
   debug)
     shift
     ak wait_postgres
-    python bin/start_openerp "$@" "--debug"
+    python "$WORKDIR/bin/start_openerp" "$@" "--debug"
     ;;
 
   build)
     shift
 
-    if [ ! -d parts/odoo ]; then
+    if [ ! -d "$WORKDIR/parts/odoo" ]; then
     cat<<EOF
 
       WARNING you didn't set any valid existing odoo repo in your
@@ -201,12 +200,12 @@ EOF
 
     echo "building project with Anybox Buildout recipe..."
     if [ -d /etc/service/postgresql ]; then
-      python bin/buildout "$@" "-c" "$BUILDOUT" "buildout:eggs-directory=$eggs_dir" \
+      python "$WORKDIR/bin/buildout" "$@" "-c" "$BUILDOUT" "buildout:eggs-directory=$eggs_dir" \
       "buildout:openerp-downloads-directory=/.devstep/addons/voodoo/downloads" \
       "buildout:develop-eggs-directory=/.devstep/addons/voodoo/develop-eggs" \
       "openerp:options.db_user=$DOCKER_USER" "openerp:options.db_name=db" "openerp:options.data_dir=.filestore"
     else
-      python bin/buildout "$@" "-c" "$BUILDOUT" "buildout:eggs-directory=$eggs_dir"
+      python "$WORKDIR/bin/buildout" "$@" "-c" "$BUILDOUT" "buildout:eggs-directory=$eggs_dir"
     fi
     ;;
 
@@ -220,7 +219,7 @@ EOF
   console)
     shift
     ak wait_postgres
-    python bin/python_openerp "$@"
+    python "$WORKDIR/bin/python_openerp" "$@"
     ;;
 
   psql)
