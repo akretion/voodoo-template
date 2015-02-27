@@ -1,11 +1,14 @@
+voodoo:
+  shared_eggs: True
+  shared_odoo: 'odoo8'
 odoo:
-  build: /home/sebastien/DEV/PAAS/voodoo-image
+  image: akretion/voodoo
   environment:
     - POSTGRESQL_DATA=/workspace/.db
     - POSTGRESQL_DB=db
-    - VIRTUAL_HOST:test.localhost
   volumes:
     - .:/workspace
+    - ../backup:/workspace/backup
   ports:
-    - "$odoo_port:8069"
-    - "$odoo_polling_port:8072"
+    - "8069:8069"
+    - "8072:8072"
