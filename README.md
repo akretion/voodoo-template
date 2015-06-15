@@ -1,3 +1,3 @@
-## Template for voodoo-cli
+## Template for voodoo
 
 https://github.com/akretion/voodoo

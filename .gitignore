@@ -38,3 +38,4 @@ etc
 parts
 bin
 settings
+buildout.dev.cfg
