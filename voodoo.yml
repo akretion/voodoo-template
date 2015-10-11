@@ -10,6 +10,7 @@ odoo:
   volumes:
     - .:/workspace
     - ../backup:/workspace/backup
+#    - ~/.ssh:/home/devstep/.ssh
   ports:
     - "8069:8069"
     - "8072:8072"
