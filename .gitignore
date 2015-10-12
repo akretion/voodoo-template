@@ -38,3 +38,6 @@ etc
 parts
 bin
 settings
+
+# Chef
+Berksfile.lock
