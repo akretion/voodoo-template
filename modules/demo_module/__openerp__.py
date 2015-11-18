@@ -3,8 +3,7 @@
     'name': "demo_module",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        ColiPoste Test""",
 
     'description': """
         Long description of module's purpose
@@ -19,11 +18,13 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
-    'data': ["security/ir.model.access.csv"],
-
-    'demo': ["data/demo_module_demo.xml"],
-
+    'depends': [
+        'delivery_carrier_label_colissimo',
+        'delivery_carrier_label_so_colissimo',
+    ],
+    'data': [],
+    'demo': [],
+    'auto_install': True,
     'tests': [
     ],
 }

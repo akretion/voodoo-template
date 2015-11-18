@@ -1,6 +1,6 @@
 voodoo:
-  shared_eggs: True
-  shared_odoo: 'odoo8'
+  shared_eggs: False
+  shared_odoo: 'odoo7'
   used_odoo_repo: 'oca'
 odoo:
   image: akretion/voodoo
@@ -10,8 +10,6 @@ odoo:
   volumes:
     - .:/workspace
     - ../backup:/workspace/backup
-#    - ~/.ssh:/home/devstep/.ssh
   ports:
-    - "8069:8069"
-    - "8072:8072"
-    - "4444:4444"
+    - "8169:8069"
+    - "8172:8072"
