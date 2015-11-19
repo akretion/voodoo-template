@@ -11,5 +11,5 @@ odoo:
     - .:/workspace
     - ../backup:/workspace/backup
   ports:
-    - "8169:8069"
-    - "8172:8072"
+    - "8009:8069"
+    - "8012:8072"
