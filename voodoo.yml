@@ -1,5 +1,5 @@
 voodoo:
-  shared_eggs: True
+  shared_eggs: False
   shared_odoo: 'odoo8'
   used_odoo_repo: 'oca'
 odoo:
