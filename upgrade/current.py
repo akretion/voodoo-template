@@ -26,4 +26,3 @@ def run(session, logger):
     if UPDATE:
         session.update_modules(UPDATE)
         env = Environment(session.cr, 1, {})
-        '
