@@ -1,11 +1,11 @@
 # -*- python -*-
 # coding: utf-8
 
-# Merci de mettre vos scripts d'upgrade à la suite de ce fichier
-# INDIQUER LE NOM DE BRANCHE QUI REQUIERT L'UPGRADE comme ci-dessous
+# Save this file as 'current.py' in the same folder if you want to use it for migration script of your Pull Request.
+# All migration scripts of merged PRs will be merged in this file, make it ready to go in production
 
-# script sample
-#     # from branch 'feature-partner++mieux-bien
+# sample script
+#     # from branch 'feature-partner++better-good
 #     partner_m = env['res.partner']
 #     partners = partner_m.search([('field', '=', '...')]):
 #     partners.write({'key': val})
@@ -25,4 +25,4 @@ def run(session, logger):
         session.install_modules(INSTALL)
     if UPDATE:
         session.update_modules(UPDATE)
-        env = Environment(session.cr, 1, {})
+    env = Environment(session.cr, 1, {})
