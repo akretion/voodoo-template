@@ -4,6 +4,7 @@ voodoo:
   used_odoo_repo: 'oca'
 odoo:
   image: akretion/voodoo
+  dockerfile: ./Dockerfile
   environment:
     - POSTGRESQL_DATA=/workspace/.db
     - POSTGRESQL_DB=db
@@ -12,6 +13,5 @@ odoo:
     - ../backup:/workspace/backup
 #    - ~/.ssh:/home/devstep/.ssh
   ports:
-    - "8069:8069"
-    - "8072:8072"
-    - "4444:4444"
+    - "8666:8069"
+    - "8667:8072"
