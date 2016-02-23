@@ -4,7 +4,6 @@ voodoo:
   used_odoo_repo: 'oca'
 odoo:
   image: akretion/voodoo
-  dockerfile: ./Dockerfile
   environment:
     - POSTGRESQL_DATA=/workspace/.db
     - POSTGRESQL_DB=db
