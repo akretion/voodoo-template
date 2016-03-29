@@ -10,8 +10,7 @@ odoo:
   volumes:
     - .:/workspace
     - ../backup:/workspace/backup
-#    - ~/.ssh:/home/devstep/.ssh
+    - /home/ubuntu/oca_freestore_data/:/workspace/source_code
   ports:
-    - "8069:8069"
-    - "8072:8072"
-    - "4444:4444"
+    - "9704:8069"
+    - "9705:8072"
