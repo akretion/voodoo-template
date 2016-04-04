@@ -1,6 +1,6 @@
 voodoo:
   shared_eggs: True
-  shared_odoo: 'odoo8'
+  shared_odoo: False
   used_odoo_repo: 'oca'
 odoo:
   image: akretion/voodoo
