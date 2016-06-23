@@ -1,0 +1,7 @@
+version: '2'
+services:
+  odoo:
+    build: .
+    ports:
+    - 8069:8069
+    - 8072:8072
