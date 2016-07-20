@@ -1,0 +1,6 @@
+version: '2'
+services:
+  odoo:
+    image: akretion/voodoo:2.0.0
+    labels:
+      main_service: "True"
