@@ -1,0 +1,17 @@
+version: '2'
+services:
+  odoo:
+    build:
+      context: .
+      dockerfile: Dockerfile-prod
+      args:
+        - AK_ENV=prod
+    environment:
+    - AK_ENV=prod # TODO avoid repetition
+    volumes:
+    - ../data:/home/odoo/data
+    labels:
+      main_service: "True"
+    ports:
+    - 8069:8069
+    - 8072:8072

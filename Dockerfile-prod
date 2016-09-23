@@ -1,0 +1,15 @@
+FROM akretion/voodoo:latest
+
+# Generic Build script for production
+USER root
+# clone odoo to have a cache when re-building image
+RUN git clone https://github.com/OCA/OCB.git /workspace/parts/odoo
+ADD . /workspace/
+RUN git config --global user.email "deploy@voodoo" && git config --global user.name "Voodoo Deploy"
+RUN ln -s /opt/voodoo/eggs /workspace/eggs
+ARG AK_ENV
+RUN export AK_ENV=$AK_ENV && ak build
+# allow odoo user to read the openerp configuration
+RUN chmod 750 /workspace/etc/openerp.cfg && chgrp odoo /workspace/etc/openerp.cfg
+USER odoo
+CMD ["ak", "run"]
