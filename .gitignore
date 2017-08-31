@@ -30,6 +30,7 @@ install/win32/meta.py
 /src/
 
 # Voodoo
+/a.r.odoo/
 dev.docker-compose.yml
 develop-eggs
 eggs
