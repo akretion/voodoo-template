@@ -1,4 +1,7 @@
-THIS PROJECT IS DEPRECATED AND REPLACED BY THE DOCKY TEMPLATES https://github.com/akretion/docky-odoo-template
+THIS PROJECT IS DEPRECATED AND REPLACED BY THE DOCKY TEMPLATES
+
+https://github.com/akretion/docky-odoo-template
+
 
 ## Template for voodoo-cli
 
